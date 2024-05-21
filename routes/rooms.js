@@ -4,7 +4,8 @@ const client = require('../db')
 
 const getAllRooms = async (req, res) => {
     try {
-        res.status(200).json({ message: 'Rooms are returned'})
+        const rooms = await client.query("SELECT * FROM rooms")
+        res.status(200).json({ message: 'Rooms are returned', data: rooms.rows})
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -12,6 +13,7 @@ const getAllRooms = async (req, res) => {
 
 const createRoom = async (req, res) => {
     try {
+
         const {name, description} = req.body;
         const id = uuidv4();
 
