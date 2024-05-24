@@ -16,6 +16,7 @@ const createRoom = async (req, res) => {
 
         const {name, description} = req.body;
         const id = uuidv4();
+        console.log(id);
 
         // inserting room data into database
         const newRoom = await client.query("INSERT INTO rooms(id,name,description) VALUES ($1, $2, $3) RETURNING *", [id, name, description])

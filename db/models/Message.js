@@ -19,10 +19,10 @@ const getMessagesByRoom = async (roomId) => {
     return res.rows;
 };
 
-const createMessage = async (roomId, user, content) => {
+const createMessage = async (roomId, messageSender, content) => {
     const res = await client.query(
-        'INSERT INTO messages (room_id, user, content) VALUES ($1, $2, $3) RETURNING *',
-        [roomId, user, content]
+        'INSERT INTO messages (room_id, messageSender, content) VALUES ($1, $2, $3) RETURNING *',
+        [roomId, messageSender, content]
     );
     return res.rows[0];
 };

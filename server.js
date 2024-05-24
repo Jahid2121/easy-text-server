@@ -8,8 +8,9 @@ const { createMessageTable } = require("./db/models/Message");
 const { getAllRooms, createRoom } = require("./routes/rooms");
 const port = process.env.PORT || 5000;
 const client = require('./db');
-const { getSpecificRoomMsg } = require("./routes/messages");
+const { getSpecificRoomMsg, sendMessageToRoom } = require("./routes/messages");
 const { chats } = require("./data/data");
+const { createUser, getLastUser } = require("./routes/users");
 
 dotenv.config()
 // middleware 
@@ -39,8 +40,16 @@ app.get('/rooms/:id/messages', getSpecificRoomMsg)
 
 
 
+app.post('/rooms/:id/messages', sendMessageToRoom)
+
+
+
 // POST /rooms: Create a new chat room.
 app.post('/rooms', createRoom)
+
+
+// POST /user: Create a user.
+app.post('/users', createUser)
 
 
 // POST /rooms/:id/messages: Send a new message to a chat room.
@@ -57,4 +66,5 @@ app.get("/api/chat/:id", async (req, res) => {
     const singleChat = chats.find(c => c._id === req.params.id)
     res.send(singleChat)
 })
+
 

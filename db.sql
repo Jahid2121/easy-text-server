@@ -1,18 +1,31 @@
 CREATE DATABASE roomsDB;
 
--- CREATE TABLE rooms (
---     id VARCHAR(255) PRIMARY KEY, 
---     name VARCHAR(35),
---     description VARCHAR(200)
--- );
-
-Create the rooms table with id as SERIAL
 CREATE TABLE rooms (
-    id SERIAL PRIMARY KEY,
+    id VARCHAR(255) PRIMARY KEY, 
     name VARCHAR(35),
     description VARCHAR(200)
 );
 
+CREATE TABLE users (
+    id VARCHAR(255) PRIMARY KEY, 
+    name VARCHAR(35)
+    );
+
+Create the rooms table with id as SERIAL
+
+-- CREATE TABLE rooms (
+--     id SERIAL PRIMARY KEY,
+--     name VARCHAR(35),
+--     description VARCHAR(200)
+-- );
+
+CREATE TABLE messages (
+    id SERIAL PRIMARY KEY,
+    room_id VARCHAR(100) REFERENCES rooms(id),
+    messageSender VARCHAR(100),
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 DROP TABLE rooms;
 
@@ -28,12 +41,7 @@ SELECT * FROM rooms
 
 // create the messages table with a foreign key reference to the rooms table
 
-CREATE TABLE messages (
-    id SERIAL PRIMARY KEY,
-    room_id INTEGER REFERENCES rooms(id),
-    content TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+
 
 
 -- Insert sample messages into the messages table 
