@@ -9,7 +9,6 @@ const { getAllRooms, createRoom } = require("./routes/rooms");
 const port = process.env.PORT || 5000;
 const client = require('./db');
 const { getSpecificRoomMsg, sendMessageToRoom } = require("./routes/messages");
-const { chats } = require("./data/data");
 const { createUser, getLastUser } = require("./routes/users");
 
 dotenv.config()
@@ -57,14 +56,5 @@ app.post('/users', createUser)
 
 
 
-app.get("/api/chat", async (req, res) => {
-    res.send(chats)
-})
-
-app.get("/api/chat/:id", async (req, res) => {
-    console.log(req.params.id);
-    const singleChat = chats.find(c => c._id === req.params.id)
-    res.send(singleChat)
-})
 
 
