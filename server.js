@@ -1,5 +1,6 @@
 const express = require("express")
 const { v4: uuidv4 } = require('uuid');
+const dotenv = require('dotenv');
 const app = express()
 const cors = require('cors');
 const { createRoomTable } = require("./db/models/Room");
@@ -8,8 +9,9 @@ const { getAllRooms, createRoom } = require("./routes/rooms");
 const port = process.env.PORT || 5000;
 const client = require('./db');
 const { getSpecificRoomMsg } = require("./routes/messages");
+const { chats } = require("./data/data");
 
-
+dotenv.config()
 // middleware 
 app.use(cors())
 app.use(express.json())
@@ -31,6 +33,7 @@ app.get('/rooms', getAllRooms)
 
 
 
+
 // GET /rooms/:id/messages: Fetch messages for a specific chat room.
 app.get('/rooms/:id/messages', getSpecificRoomMsg)
 
@@ -43,4 +46,15 @@ app.post('/rooms', createRoom)
 // POST /rooms/:id/messages: Send a new message to a chat room.
 
 
+
+
+app.get("/api/chat", async (req, res) => {
+    res.send(chats)
+})
+
+app.get("/api/chat/:id", async (req, res) => {
+    console.log(req.params.id);
+    const singleChat = chats.find(c => c._id === req.params.id)
+    res.send(singleChat)
+})
 

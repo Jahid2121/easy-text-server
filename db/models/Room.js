@@ -12,7 +12,7 @@ const createRoomTable = async () => {
 
 const getAllRooms = async () => {
     const res = await client.query('SELECT * FROM rooms');
-    return res.rows;
+    return res;
 };
 
 const createRoom = async (name) => {
