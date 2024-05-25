@@ -1,10 +1,10 @@
 const { v4: uuidv4 } = require('uuid');
-const client = require('../db')
+const pool = require('../db')
 
 
 const getAllRooms = async (req, res) => {
     try {
-        const rooms = await client.query("SELECT * FROM rooms")
+        const rooms = await pool.query("SELECT * FROM rooms")
         res.status(200).json({ message: 'Rooms are returned', data: rooms.rows})
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -19,7 +19,7 @@ const createRoom = async (req, res) => {
         console.log(id);
 
         // inserting room data into database
-        const newRoom = await client.query("INSERT INTO rooms(id,name,description) VALUES ($1, $2, $3) RETURNING *", [id, name, description])
+        const newRoom = await pool.query("INSERT INTO rooms(id,name,description) VALUES ($1, $2, $3) RETURNING *", [id, name, description])
         res.status(201).json({ message: `Room created successfully`, data: newRoom.rows });
     } catch (error) {
         res.status(500).json({ error: error.message });

@@ -10,6 +10,7 @@ const port = process.env.PORT || 5000;
 const client = require('./db');
 const { getSpecificRoomMsg, sendMessageToRoom } = require("./routes/messages");
 const { createUser, getLastUser } = require("./routes/users");
+const { createBlogs, getAllBlogs } = require("./routes/blogs");
 
 dotenv.config()
 // middleware 
@@ -56,5 +57,9 @@ app.post('/users', createUser)
 
 
 
+// POST /blogs create a new blog 
+app.post('/blogs', createBlogs)
 
 
+// get /blogs get all blog 
+app.get('/blogs', getAllBlogs)

@@ -58,3 +58,13 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+// create blogs 
+
+
+CREATE TABLE blogs (
+    id VARCHAR(255) PRIMARY KEY, 
+    title VARCHAR(255),
+    description VARCHAR(500)
+);

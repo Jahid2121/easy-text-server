@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const client = require('../db/index')
+const pool = require('../db/index')
 
 const createUser = async (req, res) => {
     try {
@@ -8,7 +8,7 @@ const createUser = async (req, res) => {
         const id = uuidv4();
 
         // inserting room data into database
-        const newUser = await client.query("INSERT INTO users(id,name) VALUES ($1, $2) RETURNING *", [id, name])
+        const newUser = await pool.query("INSERT INTO users(id,name) VALUES ($1, $2) RETURNING *", [id, name])
         res.status(201).json({ message: `User created successfully`, data: newUser.rows });
     } catch (error) {
         res.status(500).json({ error: error.message });

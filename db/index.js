@@ -1,23 +1,23 @@
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
-// const client = new Client({
-//     host: 'localhost',
-//     user: 'postgres',
-//     port: 5432,
-//     database: 'roomsdb',
-//     password: '1234'
-// });
+const pool = new Pool({
+    host: 'localhost',
+    user: 'postgres',
+    port: 5432,
+    database: 'roomsdb',
+    password: '1234'
+});
 
 
 
-const client = new Client({
-    connectionString: process.env.POSTGRES_URL,
-  })
+// const pool = new Pool({
+//     connectionString: process.env.POSTGRES_URL,
+//   })
 
-client.connect()
+pool.connect()
     .then(() => console.log('Connected to the database'))
     .catch(err => console.error('Connection error', err.stack));
 
-module.exports = client;
+module.exports = pool;
 
 
